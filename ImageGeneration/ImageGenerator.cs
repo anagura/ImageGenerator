@@ -10,9 +10,9 @@ namespace ImageGeneration
 {
     public class ImageGenerator
     {
-        public static byte[] GenerateImage(string xamlTemplate, object viewModel)
+        public static byte[] GenerateImage(string xamlTemplate, object viewModel, string name = "Model")
         {
-            var inputXaml = Razor.Parse(xamlTemplate, viewModel, "Model");
+            var inputXaml = Razor.Parse(xamlTemplate, viewModel, name);
             byte[] pngBytes = new byte[] { };
             Thread pngCreationThread =
                 new Thread(delegate() { pngBytes = GenImageFromXaml(inputXaml); });
@@ -23,9 +23,9 @@ namespace ImageGeneration
             return pngBytes;
         }
 
-        public static byte[] GenerateImageFile(string xamlTemplate, object viewModel, string outputFilePath)
+        public static byte[] GenerateImageFile(string xamlTemplate, object viewModel, string outputFilePath, string name = "Model")
         {
-            var inputXaml = Razor.Parse(xamlTemplate, viewModel, "Model");
+            var inputXaml = Razor.Parse(xamlTemplate, viewModel, name);
             byte[] pngBytes = new byte[] { };
             Thread pngCreationThread =
                 new Thread(delegate() { pngBytes = GenImageFileFromXaml(inputXaml,outputFilePath); });
